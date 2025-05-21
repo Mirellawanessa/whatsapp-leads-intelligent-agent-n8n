@@ -1,0 +1,450 @@
+{
+  "name": "Case 2",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "Receber mensagem Z-API",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e1f238cf-924c-4716-a405-194272bf68b5",
+      "name": "Webhook",
+      "webhookId": "c317e82a-daf0-451c-9dd4-f42edb27cfa3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "26d1ee48-13a3-496a-a2b2-20830c5dab0c",
+              "leftValue": "={{ $json.body.isGroup }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "af086227-43cb-444f-b413-9b53386ba636",
+              "leftValue": "={{ $json.body.isNewsletter }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "458bbac5-e22e-4a18-ab07-1cd12adb44fd",
+              "leftValue": "={{ $json.body.broadcast }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "798f52c8-ea83-48b4-a8c9-163f795073cc",
+              "leftValue": "={{ $json.body.fromApi }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        0
+      ],
+      "id": "0324828c-06ef-420a-9019-2693de5b399b",
+      "name": "If"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        440,
+        220
+      ],
+      "id": "16ea1716-aa80-4cae-b8e3-988832dbc8bd",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8a4d3857-6194-4794-9f61-bd7bd1183164",
+              "name": "idConversa",
+              "value": "={{ $json.body.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "c6dbc4c4-4e6f-4b7f-acf9-cac5d44da830",
+              "name": "Mensagem",
+              "value": "={{ $json.body.text.message }}",
+              "type": "string"
+            },
+            {
+              "id": "bd58255e-2b1b-4c67-b62b-80dc79156ef2",
+              "name": "Nome",
+              "value": "={{ $json.body.chatName }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        460,
+        -100
+      ],
+      "id": "691896fe-aab4-41d0-b60b-5c980d80ecf4",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1LQ2IGbZgz-dHcTBKp2yOPCdHFKJJwIFR8NNkMoYAAoU",
+          "mode": "list",
+          "cachedResultName": "NBN",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LQ2IGbZgz-dHcTBKp2yOPCdHFKJJwIFR8NNkMoYAAoU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 300842813,
+          "mode": "list",
+          "cachedResultName": "case 2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LQ2IGbZgz-dHcTBKp2yOPCdHFKJJwIFR8NNkMoYAAoU/edit#gid=300842813"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "WhatsApp": "={{ $json.idConversa }}",
+            "Nome": "={{ $json.Nome }}"
+          },
+          "matchingColumns": [
+            "WhatsApp"
+          ],
+          "schema": [
+            {
+              "id": "Nome",
+              "displayName": "Nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "WhatsApp",
+              "displayName": "WhatsApp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        680,
+        -100
+      ],
+      "id": "334d09e8-c861-4817-8955-7bef8d6a50be",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "sIwUagMD0qFkCI9S",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Edit Fields').item.json.Mensagem }}",
+        "options": {
+          "systemMessage": "Você é um super agente de suporte, seja educado, engraçado e utilize emojis em suas respostas para deixar a conversa mais humanizada "
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        900,
+        -100
+      ],
+      "id": "db426b3a-981c-438b-8c71-4399c1fd80c9",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        800,
+        120
+      ],
+      "id": "d6856ebd-0836-46b6-b30d-b558e12c4792",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "IgvmyVCuEHs9Vuqx",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Edit Fields').item.json.idConversa}}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        940,
+        120
+      ],
+      "id": "5a86793d-66d9-40ac-b1ab-b00ba3f60e18",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        1160,
+        80
+      ],
+      "id": "dccb1dd4-32b6-49d9-a593-999041860359",
+      "name": "Calculator"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        140
+      ],
+      "id": "6590e01a-830b-4e26-a073-8de3cc185cb9",
+      "name": "Wikipedia"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1600,
+        -100
+      ],
+      "id": "85fbabc9-a0c9-4eb8-8932-266932ab3edc",
+      "name": "No Operation, do nothing1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.z-api.io/instances/3E13F0382B47E03F95AEDE261B522EC7/token/CBE78BA7CBD799A1327262CE/send-text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "client-token",
+              "value": "F9deaf1ed67a1455abe6e0a3185ca1c05S"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "phone",
+              "value": "={{ $('Edit Fields').item.json.idConversa }}"
+            },
+            {
+              "name": "=message {{ $json.output }}",
+              "value": "Welcome to *Z-API*"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1340,
+        -100
+      ],
+      "id": "9b93ee01-8d5a-471a-8e27-8dd44db0665f",
+      "name": "HTTP Request"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "306a0a5c-146b-4b89-911d-6eddfeae1abe",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0c40519d42b46f2afb192b3646180a6e7001b9ce4795398ad93732afdf2debef"
+  },
+  "id": "M29HdXZR52hLYl6z",
+  "tags": []
+}
