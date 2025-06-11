@@ -50,7 +50,7 @@ Este projeto implementa um agente inteligente no n8n que integra mensagens receb
   &nbsp;&nbsp;&nbsp;
   <a href="https://github.com/Mirellawanessa">GitHub</a>&nbsp;|&nbsp;
   <a href="https://www.linkedin.com/in/mirellawanessa/">LinkedIn</a>&nbsp;|&nbsp;
-  <a href="https://www.instagram.com/itsmirella._/">Instagram</a>
+  <a href="https://www.instagram.com/myfilearchive">Instagram</a>
   &nbsp;|&nbsp;</p>
 </p>
 
